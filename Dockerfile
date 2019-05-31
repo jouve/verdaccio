@@ -12,6 +12,6 @@ EXPOSE 4873
 
 COPY config.yaml /root/.config/verdaccio/config.yaml
 
-WORKDIR /srv
+WORKDIR /var/lib/verdaccio
 
 CMD ["/usr/src/verdaccio/node_modules/.bin/verdaccio", "-l", "0.0.0.0:4873"]

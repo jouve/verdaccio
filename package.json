@@ -1,12 +1,5 @@
 {
-  "name": "verdaccio-docker",
-  "version": "3.11.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {},
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "verdaccio": "^3.11.0"
+    "verdaccio": "^4.0.1"
   }
 }
