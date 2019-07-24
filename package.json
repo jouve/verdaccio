@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "verdaccio": "^4.0.1"
+    "verdaccio": "^4.1.0"
   }
 }
