@@ -6,20 +6,22 @@ else
   SUDO=
 fi
 
-docker volume create apk-cache || true
-docker volume create npm-cache || true
-$SUDO docker run -i -t \
-  -v npm-cache:/root/.npm/_cacache \
-  -v apk-cache:/var/cache/apk \
-  -v $PWD:/usr/share/verdaccio \
-  -w /srv \
-  $(sed -n -e 's/FROM //p' Dockerfile) sh -x -c '
+if docker container inspect cache_cache_1 &>/dev/null; then
+  cache=--volumes-from=cache_cache_1
+else
+  cache=
+fi
+
+$SUDO docker run \
+  $cache \
+  --volume $PWD:/srv \
+  --workdir /usr/share/verdaccio \
+  $(head -n1 Dockerfile | sed -n -e 's/FROM //p') sh -x -c "
 set -e
 apk add --no-cache alpine-conf
 setup-apkcache /var/cache/apk
 apk add --no-cache make nodejs npm python2
-rm -f package-lock.json
-cp /usr/share/verdaccio/package.json .
+cp /srv/package.json .
 npm install verdaccio
-cp package-lock.json /usr/share/verdaccio
-'
+cp package-lock.json /srv
+"
