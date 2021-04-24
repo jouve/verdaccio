@@ -20,8 +20,8 @@ $SUDO docker run \
 set -e
 apk add --no-cache alpine-conf
 setup-apkcache /var/cache/apk
-apk add --no-cache make nodejs npm python2
+apk add --no-cache npm
 cp /srv/package.json .
-npm install verdaccio
+npm install --package-lock-only
 cp package-lock.json /srv
 "
