@@ -1,9 +1,11 @@
 #!/bin/bash -x
 
-if ! test -w /var/run/docker.sock; then
-  SUDO=sudo
-else
-  SUDO=
+if [ "$(basename "$(readlink -f "$(which docker)")")" != podman ]; then
+  if ! test -w /var/run/docker.sock; then
+    SUDO=sudo
+  else
+    SUDO=
+  fi
 fi
 
 if docker container inspect cache_cache_1 &>/dev/null; then
@@ -15,6 +17,7 @@ fi
 $SUDO docker run \
   $cache \
   --volume $PWD:/srv \
+  --volume /usr/share/verdaccio \
   --workdir /usr/share/verdaccio \
   $(head -n1 Dockerfile | sed -n -e 's/FROM //p') sh -x -c "
 set -e
