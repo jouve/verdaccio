@@ -1,10 +1,10 @@
-FROM alpine:3.14.2
+FROM alpine:3.15.0
 
 WORKDIR /usr/src/verdaccio
 
 COPY package.json package-lock.json ./
 
-RUN apk add --no-cache make nodejs npm python2 && \
+RUN apk add --no-cache make nodejs-current npm python2 && \
     npm ci && \
     apk del --no-cache make npm python2
 

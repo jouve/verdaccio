@@ -23,7 +23,7 @@ $SUDO docker run \
 set -e
 apk add --no-cache alpine-conf
 setup-apkcache /var/cache/apk
-apk add --no-cache npm
+apk add --no-cache nodejs-current npm
 cp /srv/package.json .
 npm install --package-lock-only
 cp package-lock.json /srv
